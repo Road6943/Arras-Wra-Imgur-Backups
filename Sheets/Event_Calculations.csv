@@ -1,0 +1,117 @@
+Notes:,,,,,Player Stats,,,,,Don't ,,Tank Stats,
+DO NOT ADD/DELETE/MOVE ANY COLUMNS OR ROWS,,,,,Player Name,# of Records,Combined WR Score,Ratio,Ratio Player Name Format,Delete,,Tank Name,Combined WR Score
+,,,,,10,1,1875830,-1,10 (1 WR),These,,(Basic) Tank,8095074
+,,,,,69,11,19311201,1755563.7272727273,69 (11 WR),Empty,,Director,6326544
+,,,,,Thing,12,25049640,2087470,Thing (12 WR),Columns,,Flank Guard,4923564
+This is the New_Calculations sheet,,,,,Ditine,3,4204509,-1,Ditine (3 WR),,,Machine Gun,8904531
+which replaces the old Calculations sheet.,,,,,a letter a,3,3166997,-1,a letter a (3 WR),They,,Pounder,4626513
+,,,,,Jackson,82,198263826,2417851.536585366,Jackson (82 WR),Exist,,Sniper,9299877
+You probably can't see any formulas on here,,,,,Nothingness,8,11047465,1380933.125,Nothingness (8 WR),To ,,Trapper,5604035
+"UPDATE 7-15-21: TimeTrialsStats were just added, and are ",,,,,Summersong,1,645020,-1,Summersong (1 WR),Provide ,,Twin,5552313
+calculated manually with pure spreadsheet formulas because I,,,,,potatoes,2,1699479,-1,potatoes (2 WR),Space,,Artillery,7040915
+don't want to bother automating it at the moment,,,,,crong,8,9727572,1215946.5,crong (8 WR),In ,,Assassin,6870245
+,,,,,O'Chunks,18,44799333,2488851.8333333335,O'Chunks (18 WR),Case,,Auto 3,6551085
+Thats because this sheet is filled in using,,,,,[MG] Spin2Team,14,13578091,969863.6428571428,[MG] Spin2Team (14 WR),We,,Builder,3862365
+a Google Apps Script File (Tools > Script Editor).,,,,,Thx m8,1,1976304,-1,Thx m8 (1 WR),Add ,,Cruiser,6272358
+DO NOT CHANGE ANYTHING IN THERE WITHOUT PERMISSION!,,,,,Candy!,5,6092390,1218478,Candy! (5 WR),New,,Destroyer,13797883
+,,,,,geometrically dominated,12,9412244,784353.6666666666,geometrically dominated (12 WR),Player,,Double Twin,8362060
+The old Calculations sheet is still around,,,,,Otobus,4,4392662,-1,Otobus (4 WR),Stats,,Gunner,8924121
+but it is hidden since it no longer serves a,,,,,Denied,4,5067658,-1,Denied (4 WR),In ,,Hexa Tank,6095843
+purpose and is/was an unmaintainable mess,,,,,e,3,4438269,-1,e (3 WR),The,,Hunter,5984867
+and a complete pain in the 🍑 to update,,,,,From Asia,3,4198590,-1,From Asia (3 WR),Future,,Launcher,3688409
+whenever a new tank or gamemode was added.,,,,,pool noodle,1,2468493,-1,pool noodle (1 WR),,,Minigun,6882251
+,,,,,𝐔,28,87657741,3130633.6071428573,𝐔 (28 WR),,,Overseer,12234296
+This New_Calculations sheet on the other hand,,,,,Cipher,11,17618211,1601655.5454545454,Cipher (11 WR),,,Rifle,6585405
+should (lotionfully) automatically adjust itself,,,,,🥕Crazy Carrot🥕,11,16768731,1524430.0909090908,🥕Crazy Carrot🥕 (11 WR),,,Smasher,5622931
+whenever new tanks and gamemodes are added,,,,,lotion,5,5023131,1004626.2,lotion (5 WR),,,Spawner,17143270
+and continue working as intended without breaking.,,,,,Anto,5,8227754,1645550.8,Anto (5 WR),,,Sprayer,8474443
+,,,,,Damocles,4,7791686,-1,Damocles (4 WR),,,Trap Guard,8349104
+The script is made such that the player/tank stats,,,,,Records,1,701630,-1,Records (1 WR),,,Tri-Angle,4815245
+will be printed as a table starting from a specific,,,,,Vinh HD,1,1048516,-1,Vinh HD (1 WR),,,Triple Shot,8998349
+cell (currently F3 and M3). You can change these,,,,,HiYouHavePolio,1,1206303,-1,HiYouHavePolio (1 WR),,,Tri-Trapper,2906676
+cells and some other stuff at the top of the code.,,,,,buff barricade,17,13920370,818845.2941176471,buff barricade (17 WR),,,Underseer,4757845
+,,,,,𝕊ØυĻ,4,3807580,-1,𝕊ØυĻ (4 WR),,,Annihilator,12961362
+The old Calculations sheet will still be kept,,,,,WL9,4,10713756,-1,WL9 (4 WR),,,Architect,5638310
+around as a backup just in case New_Calculations,,,,,<❂> ₭ǿrɇa,1,1334350,-1,<❂> ₭ǿrɇa (1 WR),,,Armsman,3403675
+"ends up not working out for whatever reason. Also,",,,,,Chat Noir,1,1095674,-1,Chat Noir (1 WR),,,Atomizer,4427812
+the old Player/Tank Stats formulas are availiable,,,,,[LK],12,17782279,1481856.5833333333,[LK] (12 WR),,,Auto-4,7499891
+"as notes in "Calculations", "Player/Tank Stats",",,,,,Karmanor,1,814663,-1,Karmanor (1 WR),,,Auto-5,10384409
+and as a note on this cell right here.,,,,,Phoenix,1,3447866,-1,Phoenix (1 WR),,,Auto Assassin,11435794
+,,,,,KILL TM#3632,1,532487,-1,KILL TM#3632 (1 WR),,,Auto Builder,8772564
+Important Note:,,,,,NadeWhyTea,3,2016524,-1,NadeWhyTea (3 WR),,,Auto Cruiser,9984613
+All of the new formulas on the Player/Tank Stats,,,,,Armin Play YT,7,5014570,716367.1428571428,Armin Play YT (7 WR),,,Auto Double,11293447
+sheet use Named Ranges that correspond to ranges,,,,,LeVitate,4,4537224,-1,LeVitate (4 WR),,,Auto Gunner,16450153
+on this New_Calculations sheet. Make sure to ,,,,,OnyxD,3,3299522,-1,OnyxD (3 WR),,,Auto Overseer,9879892
+update the named ranges alongside the constants,,,,,you tried ☆,14,13308924,950637.4285714285,you tried ☆ (14 WR),,,Auto Smasher,4855224
+in the script if you ever decide to move the ,,,,,lTorenn,2,1970220,-1,lTorenn (2 WR),,,Auto Spawner,17680975
+Player or Tank Stats tables.,,,,,evil isopod,1,2903517,-1,evil isopod (1 WR),,,Auto Tri-Angle,9072930
+,,,,,Zeo'Xe,7,20626996,2946713.714285714,Zeo'Xe (7 WR),,,Banshee,4887700
+,,,,,Sei,4,8465948,-1,Sei (4 WR),,,Barricade,6773549
+,,,,,jah,5,8069087,1613817.4,jah (5 WR),,,Battleship,10414975
+,,,,,Mine,5,9479818,1895963.6,Mine (5 WR),,,Beekeeper,5765318
+,,,,,無い焼き,1,1012172,-1,無い焼き (1 WR),,,Bent Double,7824804
+,,,,,Askatasuna,1,3300072,-1,Askatasuna (1 WR),,,Bent Hybrid,7985296
+,,,,,KevinGHB,1,1130940,-1,KevinGHB (1 WR),,, Big Cheese,8625355
+,,,,,CWWW,1,1080000,-1,CWWW (1 WR),,,Bomber,5024892
+,,,,,Road,3,4745627,-1,Road (3 WR),,,Boomer,4094979
+,,,,,Devα,14,24719153,1765653.7857142857,Devα (14 WR),,,Booster,4453690
+,,,,,PokeSvorlds,1,1365098,-1,PokeSvorlds (1 WR),,,Bulwark,6283174
+,,,,,me(duh),2,1314389,-1,me(duh) (2 WR),,,Bushwhacker,7341407
+,,,,,Quad,4,6605857,-1,Quad (4 WR),,,Carrier,10655701
+,,,,,Roman,1,2397105,-1,Roman (1 WR),,,Commander,4089841
+,,,,,[LM] KAlu,1,603116,-1,[LM] KAlu (1 WR),,,Conqueror,9678804
+,,,,,Asriel,1,2003659,-1,Asriel (1 WR),,,Constructor,7948723
+,,,,,Marcus,1,2934044,-1,Marcus (1 WR),,,Crop Duster,4623087
+,,,,,exycus,1,537760,-1,exycus (1 WR),,,Crossbow,9829045
+,,,,,someone :),1,590065,-1,someone :) (1 WR),,,Cyclone,7993127
+,,,,,Awootube,2,2664772,-1,Awootube (2 WR),,,Dual,7091420
+,,,,,Ender,2,2924470,-1,Ender (2 WR),,,Eagle,4358568
+,,,,,uhhh ._.,2,3721888,-1,uhhh ._. (2 WR),,,Engineer,11399109
+,,,,,CX has cute feet,5,7594634,1518926.8,CX has cute feet (5 WR),,,Factory,19181631
+,,,,,Typexleta,6,11751648,1958608,Typexleta (6 WR),,,Falcon,6916774
+,,,,,Myst,1,833088,-1,Myst (1 WR),,,Field Gun,3273117
+,,,,,4m,1,1457052,-1,4m (1 WR),,,Fighter,5962167
+,,,,,Die?,4,4521671,-1,Die? (4 WR),,,Focal,4419610
+,,,,,Nguyen,14,33455673,2389690.9285714286,Nguyen (14 WR),,,Fortress,4042630
+,,,,,✠ Purifier!,1,1767057,-1,✠ Purifier! (1 WR),,,Gunner Trapper,9616674
+,,,,,Micckey 😎,2,7116963,-1,Micckey 😎 (2 WR),,,Hexa Trapper,4332421
+,,,,,Gizmic,1,776091,-1,Gizmic (1 WR),,,Hewn Double,7004419
+,,,,,nata,1,1118897,-1,nata (1 WR),,,Hybrid,10486287
+,,,,,breaking good,2,2419519,-1,breaking good (2 WR),,,Infestor,0
+,,,,,poui,6,11867441,1977906.8333333333,poui (6 WR),,,Landmine,6186022
+,,,,,iJP TM,1,792056,-1,iJP TM (1 WR),,,Machine Gunner,14200752
+,,,,,4 inch wide mega dildo,1,549689,-1,4 inch wide mega dildo (1 WR),,,Maleficitor,2191210
+,,,,,mq,1,1241611,-1,mq (1 WR),,,Manager,14531184
+,,,,,Oa,1,613325,-1,Oa (1 WR),,,Mega Smasher,1062099
+,,,,,eel,2,3347762,-1,eel (2 WR),,,Mega-3,7077751
+,,,,,Jimmy,1,1700000,-1,Jimmy (1 WR),,,Mortar,4831295
+,,,,,Necropio,1,2323065,-1,Necropio (1 WR),,,Musket,4605890
+,,,,,CrimsonAsItIs,1,2043254,-1,CrimsonAsItIs (1 WR),,,Nailgun,14832513
+,,,,,Corrupt Y,2,6785064,-1,Corrupt Y (2 WR),,,Necromancer,5009170
+,,,,,itzooferz yt,1,1236660,-1,itzooferz yt (1 WR),,,Octo Tank,9926809
+,,,,,HenWire,1,1049872,-1,HenWire (1 WR),,,Ordnance,7874008
+,,,,,S3CR3T,1,907750,-1,S3CR3T (1 WR),,,Overdrive,13724140
+,,,,,Ƨchrodιηgεr,1,3156649,-1,Ƨchrodιηgεr (1 WR),,,Overgunner,6557476
+,,,,,zo,1,1931008,-1,zo (1 WR),,,Overlord,26179951
+,,,,,MrFarmz,2,3830000,-1,MrFarmz (2 WR),,,Overtrapper,8927947
+,,,,,TheMadLad,1,1273825,-1,TheMadLad (1 WR),,,Penta Shot,5151983
+,,,,,xeno,1,664982,-1,xeno (1 WR),,,Phoenix,2807596
+,,,,,alt,1,718700,-1,alt (1 WR),,,Poacher,4760801
+,,,,,literal cancer,1,938895,-1,literal cancer (1 WR),,,Predator,12230754
+,,,,,jsohi,2,3262390,-1,jsohi (2 WR),,,Ranger,4494171
+,,,,,Silk,2,4309467,-1,Silk (2 WR),,,Redistributor,7249606
+,,,,,Obsession,1,2235634,-1,Obsession (1 WR),,,Septa Trapper,5871470
+,,,,,Crown the Ö.,3,9110388,-1,Crown the Ö. (3 WR),,,Shotgun,9622772
+,,,,,Slen,1,643745,-1,Slen (1 WR),,,Sidewinder,5064773
+,,,,,⚡𝕯𝖗𝖆𝖌𝖔𝖓⚡INDONESIA,1,1158965,-1,⚡𝕯𝖗𝖆𝖌𝖔𝖓⚡INDONESIA (1 WR),,,Single,9348906
+,,,,,MoonMan,1,934713,-1,MoonMan (1 WR),,,Skimmer,5405710
+,,,,,ExC,1,2328251,-1,ExC (1 WR),,,Spike,4126762
+,,,,,Armin Play YT ,3,6006439,-1,Armin Play YT  (3 WR),,,Spreadshot,6980004
+,,,,,ThunderFlame,1,2603751,-1,ThunderFlame (1 WR),,,Stalker,4224420
+,,,,,minidev,1,1606343,-1,minidev (1 WR),,,Streamliner,10558102
+,,,,,？？？,1,1039776,-1,？？？ (1 WR),,,Surfer,5648836
+,,,,,@_@,1,725577,-1,@_@ (1 WR),,,Swarmer,5626293
+,,,,,Hurricane,1,1070000,-1,Hurricane (1 WR),,,Triple Twin,6134460
+,,,,,StormX,1,677466,-1,StormX (1 WR),,,Triplet,11877586
+,,,,,! Choke !™,1,1170175,-1,! Choke !™ (1 WR),,,Twister,4342835
+,,,,,,,,,,,,X-Hunter,0

@@ -1,0 +1,117 @@
+Notes:,,,,,Player Stats,,,,,Don't ,,Tank Stats,
+DO NOT ADD/DELETE/MOVE ANY COLUMNS OR ROWS,,,,,Player Name,# of Records,Combined WR Score,Ratio,Ratio Player Name Format,Delete,,Tank Name,Combined WR Score
+,,,,,ay96,7,14838592,2119798.8571428573,ay96 (7 WR),These,,(Basic) Tank,5364476
+,,,,,golden,28,33459827,1194993.8214285714,golden (28 WR),Empty,,Director,3876485
+,,,,,Andycito123,1,2096542,-1,Andycito123 (1 WR),Columns,,Flank Guard,952173
+This is the New_Calculations sheet,,,,,geometrically dominated,18,20621158,1145619.888888889,geometrically dominated (18 WR),,,Machine Gun,1494596
+which replaces the old Calculations sheet.,,,,,fe,2,2644649,-1,fe (2 WR),They,,Pounder,0
+,,,,,Nothingness,11,16675526,1515956.9090909092,Nothingness (11 WR),Exist,,Sniper,7616097
+You probably can't see any formulas on here,,,,,Reckless,3,2707272,-1,Reckless (3 WR),To ,,Trapper,738506
+"UPDATE 7-15-21: TimeTrialsStats were just added, and are ",,,,,baking soda,5,16838265,3367653,baking soda (5 WR),Provide ,,Twin,2783423
+calculated manually with pure spreadsheet formulas because I,,,,,Alif (ألف)🌷,1,1282894,-1,Alif (ألف)🌷 (1 WR),Space,,Artillery,9588428
+don't want to bother automating it at the moment,,,,,Corrupt Y,2,5698915,-1,Corrupt Y (2 WR),In ,,Assassin,5357406
+,,,,,YT=GLITCHER TM,26,54558689,2098411.1153846155,YT=GLITCHER TM (26 WR),Case,,Auto 3,2765788
+Thats because this sheet is filled in using,,,,,Nya~,40,76316772,1907919.3,Nya~ (40 WR),We,,Builder,2006383
+a Google Apps Script File (Tools > Script Editor).,,,,,Jackson,20,72490366,3624518.3,Jackson (20 WR),Add ,,Cruiser,0
+DO NOT CHANGE ANYTHING IN THERE WITHOUT PERMISSION!,,,,,squid lotion,1,1066175,-1,squid lotion (1 WR),New,,Destroyer,3084868
+,,,,,Clare,1,681572,-1,Clare (1 WR),Player,,Double Twin,2191161
+The old Calculations sheet is still around,,,,,🥕Crazy Carrot🥕,2,2023905,-1,🥕Crazy Carrot🥕 (2 WR),Stats,,Gunner,0
+but it is hidden since it no longer serves a,,,,,StormX,2,1913889,-1,StormX (2 WR),In ,,Hexa Tank,3811003
+purpose and is/was an unmaintainable mess,,,,,AstRatJP,1,1902063,-1,AstRatJP (1 WR),The,,Hunter,681572
+and a complete pain in the 🍑 to update,,,,,incog darky,1,2034434,-1,incog darky (1 WR),Future,,Launcher,545450
+whenever a new tank or gamemode was added.,,,,,Neptuun,37,91134619,2463097.810810811,Neptuun (37 WR),,,Minigun,0
+,,,,,ThunderFlame,1,2704981,-1,ThunderFlame (1 WR),,,Overseer,2818051
+This New_Calculations sheet on the other hand,,,,,DevinSucksAtLife,1,4062406,-1,DevinSucksAtLife (1 WR),,,Rifle,1660515
+should (lotionfully) automatically adjust itself,,,,,RAJA,4,4478115,-1,RAJA (4 WR),,,Smasher,6012396
+whenever new tanks and gamemodes are added,,,,,xeno,1,578098,-1,xeno (1 WR),,,Spawner,19404653
+and continue working as intended without breaking.,,,,,Yusuf 100,4,9052840,-1,Yusuf 100 (4 WR),,,Sprayer,4677660
+,,,,,Nite,1,3233314,-1,Nite (1 WR),,,Trap Guard,2262104
+The script is made such that the player/tank stats,,,,,WL9,6,13574195,2262365.8333333335,WL9 (6 WR),,,Tri-Angle,6854552
+will be printed as a table starting from a specific,,,,,Oue,6,10128395,1688065.8333333333,Oue (6 WR),,,Triple Shot,900733
+cell (currently F3 and M3). You can change these,,,,,Silvius,1,5510788,-1,Silvius (1 WR),,,Tri-Trapper,2858377
+cells and some other stuff at the top of the code.,,,,,Para,1,6247002,-1,Para (1 WR),,,Underseer,4011345
+,,,,,evil isopod,1,5584575,-1,evil isopod (1 WR),,,Annihilator,14709493
+The old Calculations sheet will still be kept,,,,,jax,1,2355433,-1,jax (1 WR),,,Architect,3770732
+around as a backup just in case New_Calculations,,,,,Thx m8,3,9806132,-1,Thx m8 (3 WR),,,Armsman,2135529
+"ends up not working out for whatever reason. Also,",,,,,Zeo'Xe,2,9487972,-1,Zeo'Xe (2 WR),,,Atomizer,3083099
+the old Player/Tank Stats formulas are availiable,,,,,lTorenn,4,5686530,-1,lTorenn (4 WR),,,Auto-4,8387246
+"as notes in "Calculations", "Player/Tank Stats",",,,,,Gizmic,3,4177035,-1,Gizmic (3 WR),,,Auto-5,4553471
+and as a note on this cell right here.,,,,,Quad,3,11340508,-1,Quad (3 WR),,,Auto Assassin,20623109
+,,,,,cute sus,1,2820895,-1,cute sus (1 WR),,,Auto Builder,10592264
+Important Note:,,,,,[🩸] Gєтzια,1,1439767,-1,[🩸] Gєтzια (1 WR),,,Auto Cruiser,8943593
+All of the new formulas on the Player/Tank Stats,,,,,ah~,1,1006082,-1,ah~ (1 WR),,,Auto Double,14375974
+sheet use Named Ranges that correspond to ranges,,,,,2not1🌹,2,3600848,-1,2not1🌹 (2 WR),,,Auto Gunner,10401837
+on this New_Calculations sheet. Make sure to ,,,,,Maku,2,12877904,-1,Maku (2 WR),,,Auto Overseer,18793029
+update the named ranges alongside the constants,,,,,Peach Lover,2,4693632,-1,Peach Lover (2 WR),,,Auto Smasher,5172939
+in the script if you ever decide to move the ,,,,,Hertz,2,5903504,-1,Hertz (2 WR),,,Auto Spawner,10533836
+Player or Tank Stats tables.,,,,,Nguyen,4,8647909,-1,Nguyen (4 WR),,,Auto Tri-Angle,5318480
+,,,,,Askatasuna,1,4578102,-1,Askatasuna (1 WR),,,Banshee,7805270
+,,,,,hailstorm ;),2,2154833,-1,hailstorm ;) (2 WR),,,Barricade,618788
+,,,,,Rapist!,1,916657,-1,Rapist! (1 WR),,,Battleship,6304205
+,,,,,lifey,1,5353592,-1,lifey (1 WR),,,Beekeeper,3907735
+,,,,,truper,2,2438812,-1,truper (2 WR),,,Bent Double,8286875
+,,,,,Hahaha4315,1,1020755,-1,Hahaha4315 (1 WR),,,Bent Hybrid,2390484
+,,,,,Marcus,1,4836360,-1,Marcus (1 WR),,,Big Cheese,6084556
+,,,,,HiYouHavePolio,1,2359843,-1,HiYouHavePolio (1 WR),,,Bomber,0
+,,,,,Nyrox,1,2221174,-1,Nyrox (1 WR),,,Boomer,2325638
+,,,,,Awootube,1,2398134,-1,Awootube (1 WR),,,Booster,2473157
+,,,,,,,,,,,,Bulwark,1401905
+,,,,,,,,,,,,Bushwhacker,2283422
+,,,,,,,,,,,,Carrier,3126915
+,,,,,,,,,,,,Commander,4234619
+,,,,,,,,,,,,Conqueror,1402928
+,,,,,,,,,,,,Constructor,1215774
+,,,,,,,,,,,,Crop Duster,5186969
+,,,,,,,,,,,,Crossbow,8958380
+,,,,,,,,,,,,Cyclone,548126
+,,,,,,,,,,,,Dual,0
+,,,,,,,,,,,,Eagle,3811104
+,,,,,,,,,,,,Engineer,24512713
+,,,,,,,,,,,,Factory,7348286
+,,,,,,,,,,,,Falcon,10892613
+,,,,,,,,,,,,Field Gun,5291752
+,,,,,,,,,,,,Fighter,10348432
+,,,,,,,,,,,,Focal,1016145
+,,,,,,,,,,,,Fortress,3794502
+,,,,,,,,,,,,Gunner Trapper,1940911
+,,,,,,,,,,,,Hexa Trapper,1784569
+,,,,,,,,,,,,Hewn Double,2513584
+,,,,,,,,,,,,Hybrid,5752142
+,,,,,,,,,,,,Infestor,1769988
+,,,,,,,,,,,,Landmine,10501308
+,,,,,,,,,,,,Machine Gunner,13850784
+,,,,,,,,,,,,Maleficitor,8446325
+,,,,,,,,,,,,Manager,10519005
+,,,,,,,,,,,,Mega Smasher,1349732
+,,,,,,,,,,,,Mega-3,14731525
+,,,,,,,,,,,,Mortar,7405001
+,,,,,,,,,,,,Musket,0
+,,,,,,,,,,,,Nailgun,4750055
+,,,,,,,,,,,,Necromancer,0
+,,,,,,,,,,,,Octo Tank,8800899
+,,,,,,,,,,,,Ordnance,4758820
+,,,,,,,,,,,,Overdrive,4057717
+,,,,,,,,,,,,Overgunner,4311461
+,,,,,,,,,,,,Overlord,15524508
+,,,,,,,,,,,,Overtrapper,9035575
+,,,,,,,,,,,,Penta Shot,12466090
+,,,,,,,,,,,,Phoenix,0
+,,,,,,,,,,,,Poacher,0
+,,,,,,,,,,,,Predator,1130388
+,,,,,,,,,,,,Ranger,2204115
+,,,,,,,,,,,,Redistributor,3704178
+,,,,,,,,,,,,Septa Trapper,1292181
+,,,,,,,,,,,,Shotgun,7563326
+,,,,,,,,,,,,Sidewinder,2696642
+,,,,,,,,,,,,Single,1325108
+,,,,,,,,,,,,Skimmer,0
+,,,,,,,,,,,,Spike,1020755
+,,,,,,,,,,,,Spreadshot,13855815
+,,,,,,,,,,,,Stalker,811390
+,,,,,,,,,,,,Streamliner,10574232
+,,,,,,,,,,,,Surfer,5483252
+,,,,,,,,,,,,Swarmer,5575862
+,,,,,,,,,,,,Triple Twin,1930566
+,,,,,,,,,,,,Triplet,9489630
+,,,,,,,,,,,,Twister,1972609
+,,,,,,,,,,,,X-Hunter,2079073
