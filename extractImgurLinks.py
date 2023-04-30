@@ -47,6 +47,8 @@ for csvFilename in os.listdir(SHEETS_FOLDER_NAME):
                                 ]
                 if 'imgur.com' in cell and cell not in invalidLinks:
                     # a special case, add the i. to the start
+                    # This link is in WR Rules _ Info.csv and so may not be in final output
+                    # because that csv is usually ignored
                     if "https://imgur.com/TWfwVPN.png" in cell:
                         cell = "https://i.imgur.com/TWfwVPN.png"
 
