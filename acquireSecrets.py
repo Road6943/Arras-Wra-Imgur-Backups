@@ -8,4 +8,7 @@ with open("DONT_SHARE_SECRETS.json") as secretsFile:
 
 getClientId = lambda: secrets['ImgurClientId']
 getClientSecret = lambda: secrets['ImgurClientSecret']
+getCloudinaryCloudName = lambda: secrets['CloudinaryCloudName']
+getCloudinaryApiKey = lambda: secrets['CloudinaryApiKey']
+getCloudinaryApiSecret = lambda: secrets['CloudinaryApiSecret']
 getGithubPagesSiteBaseURL = lambda: secrets['GithubPagesSiteBaseURL']

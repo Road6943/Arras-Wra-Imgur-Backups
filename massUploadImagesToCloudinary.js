@@ -1,7 +1,9 @@
 // using node js bc python's async await stuff is too much work to learn
 
+// IF NOT ALL LINKS ARE UPLOADING MAKE SURE TO COMMENT OUT BREAK_AT
+
 // set to 0 for none, but that may overload the api
-const TIME_DELAY_BETWEEN_API_CALLS_IN_SECONDS = 0.01
+const TIME_DELAY_BETWEEN_API_CALLS_IN_SECONDS = 0.004
 
 const outputFilename = "newLinks.jsonl";
 
@@ -80,7 +82,7 @@ async function uploadImgurImagesToCloudinary(inputData, seenImgurLinks) {
         totalLinksToUpload += inputData[key].length;
     }
 
-    let i = 0; // for testing purposes only
+    let breakAt = 0; // for testing purposes only
 
     for (const oldParentLink in inputData) {
         const childLinks = inputData[oldParentLink];
@@ -91,13 +93,17 @@ async function uploadImgurImagesToCloudinary(inputData, seenImgurLinks) {
         }
 
         const oldParentLinkBase64 = toBase64(oldParentLink);
-        
-        for (const oldImgurLink of childLinks) {
+
+        for (let i = 0; i < childLinks.length; i++) {
+            const oldImgurLink = childLinks[i];
+
             // skip links that have already been uploaded
             if (seenImgurLinks.has(oldImgurLink + oldParentLink)) continue;
 
             // convert the link to base64 for a url-safe and cloudinary id safe string
             const oldImgurLinkBase64 = toBase64(oldImgurLink);
+            // pad to 3 digits like 5 => '005' or 99 => '099'
+            const indexInAlbum = i.toString().padStart(3, '0');
             
             try {
                 // slow down api calls
@@ -111,7 +117,8 @@ async function uploadImgurImagesToCloudinary(inputData, seenImgurLinks) {
                 const res = cloudinary.uploader.upload(oldImgurLink, {
                     // You can specify the folder path in the public id field
                     // Store each image in the folder of its parent link
-                    public_id: `ArrasWraImgurBackups/${oldParentLinkBase64}/${oldImgurLinkBase64}`,
+                    // Put indexInAlbum at start of image name so it sorts correctly in same order as imgur album
+                    public_id: `ArrasWraImgurBackups/${oldParentLinkBase64}/${indexInAlbum}__${oldImgurLinkBase64}`,
                     tags: [ oldParentLinkBase64 ], // makes it easier for product gallery to get all images
                     resource_type: resourceType
                 });
@@ -142,7 +149,7 @@ async function uploadImgurImagesToCloudinary(inputData, seenImgurLinks) {
             }
         }
 
-        //if (++i >= 1000) break; // todo remove, helps limit how many links are uploaded when testing
+        //if (++breakAt >= 1000) break; // todo remove, helps limit how many links are uploaded when testing
     }
 
     console.log("FAILED IMGUR LINK UPLOADS:")

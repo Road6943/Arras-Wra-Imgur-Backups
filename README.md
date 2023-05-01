@@ -8,6 +8,11 @@ Use `pip3 install libraryName` for all libraries that python says is missing
 Use `npm install libraryName` for all libraries that javascript says is missing
 You can do the package installing as you go if you prefer
 
+The files are somewhat organized alphabetically 
+-> earlier-run/created files start with an earlier letter than later-run/created files
+
+If you want to save imgur links from other spreadsheets, download them as csv's and add them to the Sheets folder and rerun Step 6 onwards.
+
 # Steps
 
 1. Fork this Github Repo, then clone it to your local computer using git
@@ -31,7 +36,7 @@ You can do the package installing as you go if you prefer
 
 5. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
 
-6. Paste export_sheets_as_csv_to_folder.gs into a new script file, and change the variables at the top to the right values and then use the Run button to run the function `export_sheets_as_csv_to_folder()`
+6. Paste export_sheets_as_csv_to_folder.gs into a new script file, and change the UPPERCASE_VARIABLES at the top to the right values and then use the Run button to run the function `export_sheets_as_csv_to_folder()`
 
 7. Now go to your Google Drive and download the folder that the previous script created
 
@@ -43,7 +48,7 @@ You can do the package installing as you go if you prefer
 
 11. Run getImgurLinksWithoutAccounts.py with `python3 getImgurLinksWithoutAccounts.py` in the terminal. This will take a while to run because I'm too lazy to make it async. This will generate hashmapOfImgurLinkToItsDirectImageLinks.jsonl which is a jsonlines file (not plain json). Each line of it contains a json object where a single imgur link points to an array of all direct image links corresponding to it. For albums, this is all the direct image links within the album. For images, this is a 1-item array of the image itself as a direct link. Links that look like 'https://imgur.com/bCQxpva' are not albums but single-image links and they point to a 1-item array containing the DIRECT image link of the image at the original link.
 
-12. Run `node massUploadImagesToCloudinary.js` to upload the imgur images into cloudinary. This will also generate newLinks.jsonl which is a file where each line represents one of the direct image links found in the previous step. You may need to rerun this file a few times if you get some images failing because it just screws up on occasion.
+12. Run `node massUploadImagesToCloudinary.js` to upload the imgur images into cloudinary. This will also generate newLinks.jsonl which is a file where each line represents one of the direct image links found in the previous step. You may need to rerun this file a few times if you get some images failing because it just screws up on occasion and that can be fixed with a rerun.
 
 NOTE: 22,250 images took up about 3.03 GB; 110 mp4 videos took up about 2.80 GB
 
@@ -54,11 +59,10 @@ https://cloudinary.com/documentation/product_gallery#prerequisite_make_sure_clie
 
 15. Go back to your forked Github Repo and go to `Settings > Pages`. For "Source" choose "Deploy from a branch". For "Branch", choose "main". Next, choose "/root" NOT /docs and finally hit the save button. Wait for a minute or two and you should see the URL for your published Github Pages site show up. It should look something like "https://road6943.github.io/Arras-Wra-Imgur-Backups/" and you should copy & paste that URL into `DONT_SHARE_SECRETS.json` as the value for GithubPagesSiteBaseURL. Make sure to paste the entire URL including the https stuff at the beginning and the slash at the end.
 
-16. Run `python3 prepareSwappingScript.py` and make sure there's no errors or error messages in the terminal. TODO
+16. Run `python3 prepareSwappingScript.py` and make sure there's no errors or error messages in the terminal. This will create `replacements.json` which is a giant json file that maps old imgur links on the sheet to their new replacement links.
 
-# Notes
+17. In your forked Github Repo, upload your new replacements.json so that the following Apps Script can fetch it and use it. Don't change its name or anything, it must appear at the correct url, something like "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/replacements.json"
 
-The files are somewhat organized alphabetically 
--> earlier-run/created files start with an earlier letter than later-run/created files
+18. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
 
-If you want to save imgur links from other spreadsheets, download them as csv's and add them to the Sheets folder and rerun Step 6 onwards.
+19. Paste swapImgurLinksWithNewLinks.js into a new script file, and change the UPPERCASE_VARIABLES at the top to the right values and then use the Run button to run the function `SwapImgurLinksWithNewLinks()`

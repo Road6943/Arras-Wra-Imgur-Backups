@@ -129,7 +129,6 @@ def main():
     makeSureAllParentLinksHaveOnly1Tag(inputData)
     makeSureNoLinksWereMissedWhenUploading(allOldImgurLinksUploadedToCloudinary)
     replacementsDict = makeReplacementsDict(inputData)
-
     # print json to file
     with open(replacementsFileName, "w") as outFile:
         json.dump(replacementsDict, outFile)
