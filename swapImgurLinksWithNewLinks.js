@@ -52,7 +52,7 @@ function getAlreadyReplacedImgurLinks() {
 }
 
 function SwapImgurLinksWithNewLinks() {
-    
+    const replacements = JSON.parse( UrlFetchApp.fetch(REPLACEMENTS_FILE_URL) );
     const [alreadyReplacedImgurLinks, alreadyReplacedTrackerFile] = getAlreadyReplacedImgurLinks();
     
     const sheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -89,3 +89,5 @@ function SwapImgurLinksWithNewLinks() {
       }
     }
 }
+
+
