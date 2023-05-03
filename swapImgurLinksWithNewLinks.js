@@ -20,15 +20,25 @@
 //     I could make this with any language for the lolz like Kotlin with Ktor
 //     but I could also just use flask/express because they're simple and have lots of docs and examples
 
-// Change the extension to .gs when you run in Apps Script
-
-// Learned how to use LongRun from this Reddit comment: 
-// https://www.reddit.com/r/googlesheets/comments/rhw55x/comment/hozqtkx/?utm_source=share&utm_medium=web2x&context=3
-
 // this file freezes my computer when copying and pasting, so I'll just fetch the latest json from the github url
 const REPLACEMENTS_FILE_URL = "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/replacements.json";
 // MAKE SURE TO DELETE THIS FILE BEFORE THE FIRST TIME YOU RUN THIS SCRIPT FOR A NEW SHEET!!!
 const ALREADY_REPLACED_TRACKER_FILE_NAME = "AlreadyReplacedImgurLinksTracker.json";
+
+// You can't do more than about 3000 items at a time so run the script multiple times
+// and increase the slice by 3000 each time -> first do 0,3000 then do 3000,6000
+// make sure the end of one slice == the start of the next because .slice(start,end) goes from start to end-1
+const SLICE = [0,3000];
+
+
+
+// ---------- DON'T EDIT BELOW UNLESS YOU KNOW WHAT YOU'RE DOING ------------
+
+// GLOBAL VARIABLES bc LongRun's params argument must be a string array only
+const sheet = SpreadsheetApp.getActiveSpreadsheet();
+const [alreadyReplacedImgurLinks, alreadyReplacedTrackerFile] = getAlreadyReplacedImgurLinks();
+let totalReplacementsToMake = -1; // for logging since the slice doesn't contain the full length
+
 
 // returns [setOfLinks, trackerFile]
 function getAlreadyReplacedImgurLinks() {
@@ -51,43 +61,58 @@ function getAlreadyReplacedImgurLinks() {
   return [alreadyReplacedImgurLinks, alreadyReplacedTrackerFile];
 }
 
+
+// start a LongRun because it will exceed the 6 minute script execution limit
+// Learned how to use LongRun from this Reddit comment: 
+// https://www.reddit.com/r/googlesheets/comments/rhw55x/comment/hozqtkx/?utm_source=share&utm_medium=web2x&context=3
 function SwapImgurLinksWithNewLinks() {
-    const replacements = JSON.parse( UrlFetchApp.fetch(REPLACEMENTS_FILE_URL) );
-    const [alreadyReplacedImgurLinks, alreadyReplacedTrackerFile] = getAlreadyReplacedImgurLinks();
-    
-    const sheet = SpreadsheetApp.getActiveSpreadsheet();
-    const totalLinksToReplace = Object.keys(replacements).length;
-    let numLinksReplaced = alreadyReplacedImgurLinks.size;
+  // get an object
+  const replacementsObj = JSON.parse( UrlFetchApp.fetch(REPLACEMENTS_FILE_URL) );
+  // convert to array of [k,v] arrays and sort to ensure same order always
+  let replacementsList = Object.entries(replacementsObj).sort()
+  totalReplacementsToMake = replacementsList.length;
+  replacementsList = replacementsList.slice(...SLICE); // we can only process ~3000 items at a time
+  
+  // params must be a list of strings so temporarily convert to a string array and re-split it later
+  const params = replacementsList.map(keyValPair => {
+    const [oldLink, newLink] = keyValPair;
+    return `${oldLink} ### ${newLink}`;
+  });
 
-    for (let oldLink in replacements) {
-      try {
-        let newLink = replacements[oldLink];
+  const loopCount = replacementsList.length;
 
-        // just to be safe
-        oldLink = oldLink.trim();
-        newLink = newLink.trim();
-
-        // skip already replaced links
-        if (alreadyReplacedImgurLinks.has(oldLink)) {
-          Logger.log(`Skiping ${oldLink}`);
-          continue;
-        }
-
-        const textFinder = sheet.createTextFinder(oldLink);
-        // this does the actual replacing
-        const numOccurencesOfOldLink = textFinder.replaceAllWith(newLink);
-
-        Logger.log(`${++numLinksReplaced}/${totalLinksToReplace} Replaced ${numOccurencesOfOldLink} occurences of ${oldLink} with ${newLink}`);
-
-        // append to json file
-        alreadyReplacedImgurLinks.add(oldLink);
-        alreadyReplacedTrackerFile.setContent( JSON.stringify(Array.from(alreadyReplacedImgurLinks)) );
-
-      } catch(err) {
-        Logger.log(`Error with link ${oldLink}`);
-        Logger.log(err.message)
-      }
-    }
+  executeLongRun("main", loopCount, params, "initializer", "finalizer");
 }
+
+function initializer(startIndex, params) {}
+
+function main(index, params) {
+  // split the string back into separate links
+  let [oldLink, newLink] = params[index].split(" ### ").map(str => str.trim());
+
+  // skip already replaced links
+  if (alreadyReplacedImgurLinks.has(oldLink)) {
+    Logger.log(`Skipping ${oldLink}`);
+    return;
+  }
+
+  try {
+    const textFinder = sheet.createTextFinder(oldLink);
+    // this does the actual replacing
+    const numOccurencesOfOldLink = textFinder.replaceAllWith(newLink);
+
+    // append to json file
+    alreadyReplacedImgurLinks.add(oldLink);
+    alreadyReplacedTrackerFile.setContent( JSON.stringify(Array.from(alreadyReplacedImgurLinks)) );
+
+    Logger.log(`${alreadyReplacedImgurLinks.size}/${totalReplacementsToMake} Replaced ${numOccurencesOfOldLink} occurences of ${oldLink} with ${newLink}`);
+
+  } catch(err) {
+    Logger.log(`Error with link ${oldLink}`);
+    Logger.log(err.message);
+  }
+}
+
+function finalizer(isFinished, params) {}
 
 
