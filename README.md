@@ -63,6 +63,8 @@ https://cloudinary.com/documentation/product_gallery#prerequisite_make_sure_clie
 
 17. In your forked Github Repo, upload your new replacements.json so that the following Apps Script can fetch it and use it. Don't change its name or anything, it must appear at the correct url, something like "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/replacements.json"
 
+18. In swapImgurLinksWithNewLinks.js change REPLACEMENTS_FILE_URL to be the raw github url for your replacements.json file, similar to the link in the previous step
+
 18. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
 
-19. Paste swapImgurLinksWithNewLinks.js into a new script file, and change the UPPERCASE_VARIABLES at the top to the right values and then use the Run button to run the function `SwapImgurLinksWithNewLinks()`
+19. Paste swapImgurLinksWithNewLinks.js into a new script file and use the Run button to run the function `SwapImgurLinksWithNewLinks()`

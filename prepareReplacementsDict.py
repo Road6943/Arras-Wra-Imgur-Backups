@@ -8,6 +8,7 @@ from requests.models import PreparedRequest
 newLinksFileName = "newLinks.jsonl"
 hashmapFileName = "hashmapOfImgurLinkToItsDirectImageLinks.jsonl"
 replacementsFileName = "replacements.json"
+urlsThatDontNeedReplacingFileName = "urlsThatDontNeedReplacing.json"
 
 # build up a dict where each parent link points to an array
 # holding all its child links
@@ -79,7 +80,7 @@ def makeSureNoLinksWereMissedWhenUploading(allOldImgurLinksUploadedToCloudinary:
         print("BAD: SOME OLD IMGUR DIRECT IMAGES WERE NOT UPLOADED TO CLOUDINARY")
 
 
-def makeReplacementsDict(inputData):
+def makeReplacementsDicts(inputData):
     replacements: Dict[str,str] = {}
     baseUrl = getGithubPagesSiteBaseURL()
 
@@ -121,6 +122,18 @@ def makeReplacementsDict(inputData):
     return replacements
 
         
+def makeUrlsThatDontNeedReplacingList():
+    urlsThatDontNeedReplacing: list[str] = []
+    
+    with jsonlines.open(hashmapFileName) as reader:
+        for obj in reader:
+            for parentLink in obj:
+                childLinks = obj[parentLink]
+                
+                if (len(childLinks) == 0):
+                    urlsThatDontNeedReplacing.append(parentLink)
+    
+    return urlsThatDontNeedReplacing
 
 
 
@@ -128,10 +141,15 @@ def main():
     inputData, allOldImgurLinksUploadedToCloudinary = readNewLinksFile()
     makeSureAllParentLinksHaveOnly1Tag(inputData)
     makeSureNoLinksWereMissedWhenUploading(allOldImgurLinksUploadedToCloudinary)
-    replacementsDict = makeReplacementsDict(inputData)
+    replacementsDict = makeReplacementsDicts(inputData)
+    urlsThatDontNeedReplacing = makeUrlsThatDontNeedReplacingList()
+
     # print json to file
-    with open(replacementsFileName, "w") as outFile:
-        json.dump(replacementsDict, outFile)
+    with open(replacementsFileName, "w") as replaceFile:
+        json.dump(replacementsDict, replaceFile)
+
+    with open(urlsThatDontNeedReplacingFileName, "w") as dontNeedReplacingFile:
+        json.dump(urlsThatDontNeedReplacing, dontNeedReplacingFile)
 
 
 main()
