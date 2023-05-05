@@ -15,13 +15,29 @@
 <script>
     (function main() {
         const urlParams = new URLSearchParams(window.location.search);
-        const imgurLinkBase64 = urlParams.get('imgurLinkBase64')?.trim();
+        let imgurLinkBase64 = urlParams.get('imgurLinkBase64')?.trim();
+        let imgurLink = urlParams.get('imgurLink')?.trim();
+        let cloudName = urlParams.get('cloudName')?.trim();
         
-        // if no url param, returns null
+        // default cloud name is "road6943"
+        if (!cloudName) {
+            cloudName = "road6943";
+        }
+
+        // if no imgur link params, returns null
         // also return early if empty string
-        if (!imgurLinkBase64) {
+        if (!imgurLinkBase64 && !imgurLink) {
             return;
         }
+
+        // if only imgurLink, convert it to base64
+        if (imgurLink && !imgurLinkBase64) {
+            imgurLinkBase64 = btoa(imgurLink);
+        }
+
+        // if both imgurLink and imgurLinkBase64, 
+        // then imgurLinkBase64 will be the only one used
+        
 
         // https://cloudinary.com/documentation/product_gallery
         // https://demo.cloudinary.com/product-gallery/?editor
@@ -29,6 +45,7 @@
             container: "#gallery",
             cloudName: "road6943",
             // get both images and videos from the album
+            // the tags in cloudinary are base64 strings
             mediaAssets: [{ tag: imgurLinkBase64 }, { tag: imgurLinkBase64, mediaType: 'video' }],
             displayProps: { mode: "expanded" },
             videoProps: { controls: "all", loop: true, sound: true, },
