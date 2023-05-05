@@ -44,7 +44,7 @@ If you want to save imgur links from other spreadsheets, download them as csv's 
 
 9. Rename that folder to "Sheets"
 
-10. Run extractImgurLinksAndCells.py by typing `python3 extractImgurLinksAndCells.py` in your terminal. This will create/overwrite `foundImgurLinks.json`, which will contain a giant list of every unique non-gallery imgur link on the sheet.
+10. Run extractImgurLinks.py by typing `python3 extractImgurLinks.py` in your terminal. This will create/overwrite `foundImgurLinks.json`, which will contain a giant list of every unique non-gallery imgur link on the sheet.
 
 11. Run getImgurLinksWithoutAccounts.py with `python3 getImgurLinksWithoutAccounts.py` in the terminal. This will take a while to run because I'm too lazy to make it async. This will generate hashmapOfImgurLinkToItsDirectImageLinks.jsonl which is a jsonlines file (not plain json). Each line of it contains a json object where a single imgur link points to an array of all direct image links corresponding to it. For albums, this is all the direct image links within the album. For images, this is a 1-item array of the image itself as a direct link. Links that look like 'https://imgur.com/bCQxpva' are not albums but single-image links and they point to a 1-item array containing the DIRECT image link of the image at the original link.
 
@@ -59,12 +59,14 @@ https://cloudinary.com/documentation/product_gallery#prerequisite_make_sure_clie
 
 15. Go back to your forked Github Repo and go to `Settings > Pages`. For "Source" choose "Deploy from a branch". For "Branch", choose "main". Next, choose "/root" NOT /docs and finally hit the save button. Wait for a minute or two and you should see the URL for your published Github Pages site show up. It should look something like "https://road6943.github.io/Arras-Wra-Imgur-Backups/" and you should copy & paste that URL into `DONT_SHARE_SECRETS.json` as the value for GithubPagesSiteBaseURL. Make sure to paste the entire URL including the https stuff at the beginning and the slash at the end.
 
-16. Run `python3 prepareSwappingScript.py` and make sure there's no errors or error messages in the terminal. This will create `replacements.json` which is a giant json file that maps old imgur links on the sheet to their new replacement links.
+16. Run `python3 prepareReplacementsDict.py` and make sure there's no errors or error messages in the terminal. This will create `replacements.json` which is a giant json file that maps old imgur links on the sheet to their new replacement links. It will also create `urlsThatDontNeedReplacing.json` which is a list of imgur links that already have accounts associated. If error messages show up in the terminal, then investigate further and fix the problem then rerun the current step.
 
 17. In your forked Github Repo, upload your new replacements.json so that the following Apps Script can fetch it and use it. Don't change its name or anything, it must appear at the correct url, something like "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/replacements.json"
 
-18. In swapImgurLinksWithNewLinks.js change REPLACEMENTS_FILE_URL to be the raw github url for your replacements.json file, similar to the link in the previous step
+18. Repeat the above step for `urlsThatDontNeedReplacing.json`
 
-18. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
+18. In swapImgurLinksWithNewLinks.js change REPLACEMENTS_FILE_URL and URLS_THAT_DONT_NEED_REPLACING_FILE_URL to be the raw github urls for their respective files, similar to the links in the previous two steps
 
-19. Paste swapImgurLinksWithNewLinks.js into a new script file and use the Run button to run the function `SwapImgurLinksWithNewLinks()`
+19. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
+
+20. Paste swapImgurLinksWithNewLinks.js into a new script file and use the Run button to run the function `SwapImgurLinksWithNewLinks()`

@@ -1,118 +1,58 @@
-// PROBLEM:
-// Exceeded maximum execution time
-// The limit is 6min, my script takes ~5min per 100 links so this won't be fine
-// Theres about 5300 replacements to make
-// https://inclu-cat.net/2021/12/14/an-easy-way-to-deal-with-google-apps-scripts-6-minute-limit/
-// I'm testing on this copy of the sheet:
-// https://docs.google.com/spreadsheets/d/13t7TS85Y46WqHppgoX53eMSRFNpkVtr--wje2yA6K8Q/edit#gid=1379322997
-// It seems to be working so far but I should see if any issues arise later
-
-// otherwise just do what I usually do:
-// load data from somewhere with finished links and make a set
-// skip links in set, but replace otherwise and then add to set
-// I can do this in several ways:
-// 1. (easiest) store links in a new sheet tab - be careful though since I don't want them to be extracted by the extractImgurLinks.py script
-//    tho this may not be an issue since that py script makes a set anyways so duplicate links are taken care of
-//    I could also add a readme step to make the new sheet an invalid one in extractImgurLinks.py
-// 2. Properties service - this may run out of space tho, 9 KB per key/val pair, and i have over 5000 links so not enough
-// 3. fetch to a url with a custom replit flask api that stores in replit db or another json file
-//     https://dev.to/sandrarodgers/basic-express-server-using-replitcom-2ba9
-//     I could make this with any language for the lolz like Kotlin with Ktor
-//     but I could also just use flask/express because they're simple and have lots of docs and examples
-
-// this file freezes my computer when copying and pasting, so I'll just fetch the latest json from the github url
 const REPLACEMENTS_FILE_URL = "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/replacements.json";
-// MAKE SURE TO DELETE THIS FILE BEFORE THE FIRST TIME YOU RUN THIS SCRIPT FOR A NEW SHEET!!!
-const ALREADY_REPLACED_TRACKER_FILE_NAME = "AlreadyReplacedImgurLinksTracker.json";
+const URLS_THAT_DONT_NEED_REPLACING_FILE_URL = "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/urlsThatDontNeedReplacing.json";
 
-// You can't do more than about 3000 items at a time so run the script multiple times
-// and increase the slice by 3000 each time -> first do 0,3000 then do 3000,6000
-// make sure the end of one slice == the start of the next because .slice(start,end) goes from start to end-1
-const SLICE = [0,3000];
+// stuff like HAS because HAS Calculations controls it
+const SHEETS_TO_SKIP = new Set([
+  "WR Rules & Info", // 
+  "Highest Arras Scores", // pulls from HAS Calculations
+  "Top 100", // pulls from HAS Calculations
+  "Player/Tank Stats", // no imgur links
+  "Legacy Arras Scores", // pulls from HAS Calculations
+  "Event Arras Scores", // pulls from HAS Calculations
+  "Discord IDs", // no imgur links
+  "Min/Max Records", // pulls from Records
+  "Event_Calculations", // no imgur links
+  "New_Calculations", // no imgur links
+  "Incog_Calculations", // no imgur links
+  "1717462797", // no imgur links
+  "Charts/Graphs", // no imgur links
+]);
 
-
-
-// ---------- DON'T EDIT BELOW UNLESS YOU KNOW WHAT YOU'RE DOING ------------
-
-// GLOBAL VARIABLES bc LongRun's params argument must be a string array only
-const sheet = SpreadsheetApp.getActiveSpreadsheet();
-const [alreadyReplacedImgurLinks, alreadyReplacedTrackerFile] = getAlreadyReplacedImgurLinks();
-let totalReplacementsToMake = -1; // for logging since the slice doesn't contain the full length
-
-
-// returns [setOfLinks, trackerFile]
-function getAlreadyReplacedImgurLinks() {
-  let alreadyReplacedTrackerFile = null;
-
-  const fileIterator = DriveApp.getFilesByName(ALREADY_REPLACED_TRACKER_FILE_NAME);
-  if (fileIterator.hasNext()) {
-    alreadyReplacedTrackerFile = fileIterator.next();
-  }
-
-  // if the file doesn't exist already, create it (aka the first time this function runs)
-  // make it an empty json array
-  if (alreadyReplacedTrackerFile === null) {
-    alreadyReplacedTrackerFile = DriveApp.createFile(ALREADY_REPLACED_TRACKER_FILE_NAME, "[]");
-  }
-
-  const alreadyReplacedTrackerFileContents = alreadyReplacedTrackerFile.getBlob().getDataAsString();
-  const alreadyReplacedImgurLinks = new Set( JSON.parse(alreadyReplacedTrackerFileContents) );
-  
-  return [alreadyReplacedImgurLinks, alreadyReplacedTrackerFile];
-}
-
-
-// start a LongRun because it will exceed the 6 minute script execution limit
-// Learned how to use LongRun from this Reddit comment: 
-// https://www.reddit.com/r/googlesheets/comments/rhw55x/comment/hozqtkx/?utm_source=share&utm_medium=web2x&context=3
 function SwapImgurLinksWithNewLinks() {
-  // get an object
-  const replacementsObj = JSON.parse( UrlFetchApp.fetch(REPLACEMENTS_FILE_URL) );
-  // convert to array of [k,v] arrays and sort to ensure same order always
-  let replacementsList = Object.entries(replacementsObj).sort()
-  totalReplacementsToMake = replacementsList.length;
-  replacementsList = replacementsList.slice(...SLICE); // we can only process ~3000 items at a time
-  
-  // params must be a list of strings so temporarily convert to a string array and re-split it later
-  const params = replacementsList.map(keyValPair => {
-    const [oldLink, newLink] = keyValPair;
-    return `${oldLink} ### ${newLink}`;
-  });
+  const replacements = JSON.parse(UrlFetchApp.fetch(REPLACEMENTS_FILE_URL));
+  const urlsThatDontNeedReplacing = new Set(JSON.parse(UrlFetchApp.fetch(URLS_THAT_DONT_NEED_REPLACING_FILE_URL)));
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-  const loopCount = replacementsList.length;
+  for (const sheet of ss.getSheets()) {
+    if (SHEETS_TO_SKIP.has(sheet.getName().trim())) continue;
 
-  executeLongRun("main", loopCount, params, "initializer", "finalizer");
-}
+    const dataRange = sheet.getDataRange();
+    const sheetValues = dataRange.getValues();
+    // js array is 0-indexed but the actual sheet is 1-indexed so convert properly
+    for (let row = 0; row < sheetValues.length; row++) {
+      for (let col = 0; col < sheetValues[row].length; col++) {
+        const cell = sheetValues[row][col].toString().trim();
 
-function initializer(startIndex, params) {}
+        if (cell === "") continue;
+        else if (!cell.includes("imgur.")) continue;
+        else if (cell.includes("/gallery/")) continue;
+        else if (cell.includes("road6943.github.io/Arras-Wra-Imgur-Backups")) continue;
+        else if (urlsThatDontNeedReplacing.has(cell)) continue;
 
-function main(index, params) {
-  // split the string back into separate links
-  let [oldLink, newLink] = params[index].split(" ### ").map(str => str.trim());
+        // and the more minor stuff like deleted links should just be ignored as there's no way to keep them up to date when new files are added
 
-  // skip already replaced links
-  if (alreadyReplacedImgurLinks.has(oldLink)) {
-    Logger.log(`Skipping ${oldLink}`);
-    return;
+        //Logger.log(cell + " :: " + sheet.getName());
+        if (!(cell in replacements)) {
+          Logger.log(`#${cell}#` + " NOT in replacements")
+        }
+      }
+    }
+
   }
 
-  try {
-    const textFinder = sheet.createTextFinder(oldLink);
-    // this does the actual replacing
-    const numOccurencesOfOldLink = textFinder.replaceAllWith(newLink);
-
-    // append to json file
-    alreadyReplacedImgurLinks.add(oldLink);
-    alreadyReplacedTrackerFile.setContent( JSON.stringify(Array.from(alreadyReplacedImgurLinks)) );
-
-    Logger.log(`${alreadyReplacedImgurLinks.size}/${totalReplacementsToMake} Replaced ${numOccurencesOfOldLink} occurences of ${oldLink} with ${newLink}`);
-
-  } catch(err) {
-    Logger.log(`Error with link ${oldLink}`);
-    Logger.log(err.message);
-  }
+  // instead of cell by cell might be faster to do a getvalues and track the row/col of each replacement in a data structure
+  // and then go through and replace them all at once
+  // you can store the stuff you've been through in an external json like before to make this go past 6min limit if needed
 }
-
-function finalizer(isFinished, params) {}
 
 
