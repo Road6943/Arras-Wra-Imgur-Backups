@@ -45,7 +45,8 @@ for csvFilename in os.listdir(SHEETS_FOLDER_NAME):
                                 "https://imgur.com/sr219f0fc086031.gif", # deleted
                                 "https://imgur.com/tCWsyX4p", # id has 1 extra char and I'm not sure what the og link is bc all possibilities lead to 404 error
                                 ]
-                if 'imgur.com' in cell and cell not in invalidLinks:
+                # allow imgur.io and imgur.com
+                if 'imgur.' in cell and cell not in invalidLinks:
                     # a special case, add the i. to the start
                     # This link is in WR Rules _ Info.csv and so may not be in final output
                     # because that csv is usually ignored

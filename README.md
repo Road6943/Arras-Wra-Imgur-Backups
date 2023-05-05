@@ -48,6 +48,8 @@ If you want to save imgur links from other spreadsheets, download them as csv's 
 
 11. Run getImgurLinksWithoutAccounts.py with `python3 getImgurLinksWithoutAccounts.py` in the terminal. This will take a while to run because I'm too lazy to make it async. This will generate hashmapOfImgurLinkToItsDirectImageLinks.jsonl which is a jsonlines file (not plain json). Each line of it contains a json object where a single imgur link points to an array of all direct image links corresponding to it. For albums, this is all the direct image links within the album. For images, this is a 1-item array of the image itself as a direct link. Links that look like 'https://imgur.com/bCQxpva' are not albums but single-image links and they point to a 1-item array containing the DIRECT image link of the image at the original link.
 
+12. Rerun the step above to try and get a few more links into the output file because they may have failed for a random reason before. Also, go through the failed links in the terminal output and click them to see which ones are actual 404 image not found links. Add those links to the variable `known404Links` in the script with each link on its own line.
+
 12. Run `node massUploadImagesToCloudinary.js` to upload the imgur images into cloudinary. This will also generate newLinks.jsonl which is a file where each line represents one of the direct image links found in the previous step. You may need to rerun this file a few times if you get some images failing because it just screws up on occasion and that can be fixed with a rerun.
 
 NOTE: 22,250 images took up about 3.03 GB; 110 mp4 videos took up about 2.80 GB
@@ -65,8 +67,10 @@ https://cloudinary.com/documentation/product_gallery#prerequisite_make_sure_clie
 
 18. Repeat the above step for `urlsThatDontNeedReplacing.json`
 
-18. In swapImgurLinksWithNewLinks.js change REPLACEMENTS_FILE_URL and URLS_THAT_DONT_NEED_REPLACING_FILE_URL to be the raw github urls for their respective files, similar to the links in the previous two steps
+18. In swapImgurLinksWithNewLinks.js change REPLACEMENTS_FILE_URL and URLS_THAT_DONT_NEED_REPLACING_FILE_URL to be the raw github urls for their respective files, similar to the links in the previous two steps.
+
+19. In the same Apps Script file, paste the known404Links from `getImgurLinksWithoutAccounts.py` into the KNOWN_404_LINKS variable in the Apps Script file.
 
 19. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
 
-20. Paste swapImgurLinksWithNewLinks.js into a new script file and use the Run button to run the function `SwapImgurLinksWithNewLinks()`
+20. Paste swapImgurLinksWithNewLinks.js into a new script file, change the extension to .gs, and use the Run button to run the function `SwapImgurLinksWithNewLinks()`
