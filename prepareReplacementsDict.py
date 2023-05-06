@@ -1,7 +1,7 @@
 import jsonlines, json
 from typing import Dict
 from collections import defaultdict
-from acquireSecrets import getGithubPagesSiteBaseURL
+from acquireSecrets import getGithubPagesSiteBaseURL, getCloudinaryCloudName
 from requests.models import PreparedRequest
 
 
@@ -108,7 +108,7 @@ def makeReplacementsDicts(inputData):
         # to make them more readable, I'm using str instead of dict bc
         # I don't want the resulting links to be percent-encoded
         #req.prepare_url(baseUrl, { "imgurLinkBase64": tag })
-        req.prepare_url(baseUrl, f"imgurLink={oldParentLink}")
+        req.prepare_url(baseUrl, f"cloudName={getCloudinaryCloudName()}&imgurLink={oldParentLink}")
 
         replacements[oldParentLink] = req.url
 
