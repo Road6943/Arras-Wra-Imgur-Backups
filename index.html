@@ -27,6 +27,8 @@
         // if no imgur link params, returns null
         // also return early if empty string
         if (!imgurLinkBase64 && !imgurLink) {
+            console.log("You must include a url param of imgurLink or imgurLinkBase64! For example:");
+            console.log("https://road6943.github.io/Arras-Wra-Imgur-Backups/?imgurLink=https://imgur.com/a/ByNNl9O");
             return;
         }
 

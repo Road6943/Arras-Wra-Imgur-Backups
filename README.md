@@ -50,27 +50,27 @@ If you want to save imgur links from other spreadsheets, download them as csv's 
 
 12. Rerun the step above to try and get a few more links into the output file because they may have failed for a random reason before. Also, go through the failed links in the terminal output and click them to see which ones are actual 404 image not found links. Add those links to the variable `known404Links` in the script with each link on its own line.
 
-12. Run `node massUploadImagesToCloudinary.js` to upload the imgur images into cloudinary. This will also generate newLinks.jsonl which is a file where each line represents one of the direct image links found in the previous step. You may need to rerun this file a few times if you get some images failing because it just screws up on occasion and that can be fixed with a rerun.
+13. Run `node massUploadImagesToCloudinary.js` to upload the imgur images into cloudinary. This will also generate newLinks.jsonl which is a file where each line represents one of the direct image links found in the previous step. You may need to rerun this file a few times if you get some images failing because it just screws up on occasion and that can be fixed with a rerun.
 
 NOTE: 22,250 images took up about 3.03 GB; 110 mp4 videos took up about 2.80 GB
 
-13. Log into your Cloudinary account and follow the instructions here to ensure your client side asset lists are enabled. Make sure to save your settings changes: 
+14. Log into your Cloudinary account and follow the instructions here to ensure your client side asset lists are enabled. Make sure to save your settings changes: 
 https://cloudinary.com/documentation/product_gallery#prerequisite_make_sure_client_side_asset_lists_are_enabled
  
-14. Confirm that your images and videos have been successfully uploaded into Cloudinary using the UI
+15. Confirm that your images and videos have been successfully uploaded into Cloudinary using the UI
 
-15. Go back to your forked Github Repo and go to `Settings > Pages`. For "Source" choose "Deploy from a branch". For "Branch", choose "main". Next, choose "/root" NOT /docs and finally hit the save button. Wait for a minute or two and you should see the URL for your published Github Pages site show up. It should look something like "https://road6943.github.io/Arras-Wra-Imgur-Backups/" and you should copy & paste that URL into `DONT_SHARE_SECRETS.json` as the value for GithubPagesSiteBaseURL. Make sure to paste the entire URL including the https stuff at the beginning and the slash at the end.
+16. Go back to your forked Github Repo and go to `Settings > Pages`. For "Source" choose "Deploy from a branch". For "Branch", choose "main". Next, choose "/root" NOT /docs and finally hit the save button. Wait for a minute or two and you should see the URL for your published Github Pages site show up. It should look something like "https://road6943.github.io/Arras-Wra-Imgur-Backups/" and you should copy & paste that URL into `DONT_SHARE_SECRETS.json` as the value for GithubPagesSiteBaseURL. Make sure to paste the entire URL including the https stuff at the beginning and the slash at the end.
 
-16. Run `python3 prepareReplacementsDict.py` and make sure there's no errors or error messages in the terminal. This will create `replacements.json` which is a giant json file that maps old imgur links on the sheet to their new replacement links. It will also create `urlsThatDontNeedReplacing.json` which is a list of imgur links that already have accounts associated. If error messages show up in the terminal, then investigate further and fix the problem then rerun the current step.
+17. Run `python3 prepareReplacementsDict.py` and make sure there's no errors or error messages in the terminal. This will create `replacements.json` which is a giant json file that maps old imgur links on the sheet to their new replacement links. It will also create `urlsThatDontNeedReplacing.json` which is a list of imgur links that already have accounts associated. If error messages show up in the terminal, then investigate further and fix the problem then rerun the current step.
 
-17. In your forked Github Repo, upload your new replacements.json so that the following Apps Script can fetch it and use it. Don't change its name or anything, it must appear at the correct url, something like "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/replacements.json"
+18. In your forked Github Repo, upload your new replacements.json so that the following Apps Script can fetch it and use it. Don't change its name or anything, it must appear at the correct url, something like "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/replacements.json"
 
-18. Repeat the above step for `urlsThatDontNeedReplacing.json`
+19. Repeat the above step for `urlsThatDontNeedReplacing.json`
 
-18. In swapImgurLinksWithNewLinks.js change REPLACEMENTS_FILE_URL and URLS_THAT_DONT_NEED_REPLACING_FILE_URL to be the raw github urls for their respective files, similar to the links in the previous two steps.
+20. In wipeOldImgurLinksAndAddNewLinks.gs change REPLACEMENTS_FILE_URL and URLS_THAT_DONT_NEED_REPLACING_FILE_URL to be the raw github urls for their respective files, similar to the links in the previous two steps.
 
-19. In the same Apps Script file, paste the known404Links from `getImgurLinksWithoutAccounts.py` into the KNOWN_404_LINKS variable in the Apps Script file.
+21. In the same Apps Script file, paste the known404Links from `getImgurLinksWithoutAccounts.py` into the KNOWN_404_LINKS variable in the Apps Script file.
 
-19. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
+22. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
 
-20. Paste swapImgurLinksWithNewLinks.js into a new script file, change the extension to .gs, and use the Run button to run the function `SwapImgurLinksWithNewLinks()`
+23. Paste wipeOldImgurLinksAndAddNewLinks.gs into a new script file, change the extension to .gs, and use the Run button to run the function `ReplaceImgurLinks()`

@@ -103,7 +103,13 @@ def makeReplacementsDicts(inputData):
 
         # construct the link using requests - https://stackoverflow.com/a/49957974
         req = PreparedRequest()
-        req.prepare_url(baseUrl, { "imgurLinkBase64": tag })
+
+        # I will switch to using the oldLink's directly instead of base64 
+        # to make them more readable, I'm using str instead of dict bc
+        # I don't want the resulting links to be percent-encoded
+        #req.prepare_url(baseUrl, { "imgurLinkBase64": tag })
+        req.prepare_url(baseUrl, f"imgurLink={oldParentLink}")
+
         replacements[oldParentLink] = req.url
 
     
