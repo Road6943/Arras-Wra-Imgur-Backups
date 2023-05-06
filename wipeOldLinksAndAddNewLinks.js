@@ -1,9 +1,12 @@
+// set this to true to actually do the replacing
+const DO_REPLACING_FOR_REAL = false;
+
 const REPLACEMENTS_FILE_URL = "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/replacements.json";
 const URLS_THAT_DONT_NEED_REPLACING_FILE_URL = "https://raw.githubusercontent.com/Road6943/Arras-Wra-Imgur-Backups/main/urlsThatDontNeedReplacing.json";
 
 // stuff like HAS because HAS Calculations controls it
 const SHEETS_TO_SKIP = new Set([
-  "WR Rules & Info", // 
+  "WR Rules & Info", // pulls from records (was used by the old wra website)
   "Highest Arras Scores", // pulls from HAS Calculations
   "Top 100", // pulls from HAS Calculations
   "Player/Tank Stats", // no imgur links
@@ -47,10 +50,12 @@ const KNOWN_404_LINKS = new Set(`
   https://imgur.com/a/BOFNLHT
 `.split("\n").map(line => line.trim()));
 
-function WipeOldLinksAndAddNewLinks() {
+function ReplaceImgurLinks() {
   const replacements = JSON.parse(UrlFetchApp.fetch(REPLACEMENTS_FILE_URL));
   const urlsThatDontNeedReplacing = new Set(JSON.parse(UrlFetchApp.fetch(URLS_THAT_DONT_NEED_REPLACING_FILE_URL)));
   const ss = SpreadsheetApp.getActiveSpreadsheet();
+  // this is the backup for when a simple setValues call on the dataRange doesn't work
+  // then we will iterate through this and individually setValue each cell
   const swapsToMake = {}
 
   for (const sheet of ss.getSheets()) {
@@ -64,52 +69,77 @@ function WipeOldLinksAndAddNewLinks() {
     // js array is 0-indexed but the actual sheet is 1-indexed so convert properly
     for (let row = 0; row < sheetValues.length; row++) {
       for (let col = 0; col < sheetValues[row].length; col++) {
-        let cell = sheetValues[row][col].toString().trim();
+        let cellValue = sheetValues[row][col].toString().trim();
 
         // remove query params at the end 
-        cell = cell.split("?")[0];
+        cellValue = cellValue.split("?")[0]
 
-        if (cell === "") continue;
-        else if (!cell.includes("imgur.")) continue;
-        else if (cell.includes("/gallery/")) continue;
-        else if (cell.includes("road6943.github.io/Arras-Wra-Imgur-Backups")) continue;
-        else if (urlsThatDontNeedReplacing.has(cell)) continue;
+        if (cellValue === "") continue;
+        else if (!cellValue.includes("imgur.")) continue;
+        else if (cellValue.includes("/gallery/")) continue;
+        else if (cellValue.includes("road6943.github.io/Arras-Wra-Imgur-Backups")) continue;
+        else if (urlsThatDontNeedReplacing.has(cellValue)) continue;
         
-        if (KNOWN_404_LINKS.has(cell)) {
-          // TODO maybe replace these with a blank cell?
-          // actually replace them with something like [Proof Expired]
+        if (KNOWN_404_LINKS.has(cellValue)) {
+          const brokenLinkReplacement = "[Proof Expired]";
+          sheetValues[row][col] = brokenLinkReplacement;
+
+          swapsToMake[sheetName].push({
+            row: row+1, // 0 index -> 1 index
+            col: col+1,
+            oldLink: cellValue,
+            newLink: brokenLinkReplacement,
+          });
+
           continue;
         }
 
         // and the more minor stuff like deleted links should just be ignored as there's no way to keep them up to date when new files are added
 
         //console.log(cell + " :: " + sheet.getName());
-        if (!(cell in replacements)) {
-          console.log(`${cell} couldn't be replaced!`)
+        if (!(cellValue in replacements)) {
+          // 0 index -> 1 index
+          const colLetter = colNum0IndexToLetter(col);
+          console.log(`${cellValue} couldn't be replaced! It's in ${sheetName} at row ${row+1}, col ${colLetter}`)
         } else {
-          // do the actual replacing here TODO
-          // https://developers.google.com/apps-script/reference/spreadsheet/sheet#getrangerow,-column
-          // <sheet>.getRange(row,col) returns a single cell and both nums should be 1-indexed
-          // instead of doing many getRange's it might be better to modify the js array instead and do 1 giant setRange for each sheet
-          // currently exec times out 10% thru HAS Calculations - I think giant setvalues may be better
-          // avoid breaking formulas: https://stackoverflow.com/questions/54775597/get-modify-set-values-without-breaking-formulas-in-google-sheet-with-scripts
+          // modify sheetValues so we can do a giant setValue call later
+          sheetValues[row][col] = replacements[cellValue];
+
+          // backup for if giant setValue doesn't work
           swapsToMake[sheetName].push({
-            row: row+1, 
+            row: row+1, // 0 index -> 1 index
             col: col+1,
-            newLink: replacements[cell],
+            oldLink: cellValue,
+            newLink: replacements[cellValue],
           });
-          // console.log(sheet.getRange(row+1,col+1).getValue());
         }
       }
     }
+    
+    // only do replacing when this var is true
+    if (!DO_REPLACING_FOR_REAL) { continue; }
 
-    console.log(swapsToMake[sheetName]);
+    // Do the actual replacing
+    try {
 
+      // first, try a simple giant setValues call of the modified 2d array
+      dataRange.setValues(sheetValues);
+      console.log(`Replaced all imgur links in ${sheetName}`);
+
+    } catch {
+
+      // if the above fails, iterate through each individual swap and set each cell value separately
+      for (const swap of swapsToMake[sheetName]) {
+        sheet.getRange(swap.row, swap.col).setValue(swap.newLink);
+      }
+
+      console.log(`Individually replaced all imgur links in ${sheetName}`);
+    }
   }
-
-  // instead of cell by cell might be faster to do a getvalues and track the row/col of each replacement in a data structure
-  // and then go through and replace them all at once
-  // you can store the stuff you've been through in an external json like before to make this go past 6min limit if needed
 }
 
-
+// https://stackoverflow.com/a/71713806
+function colNum0IndexToLetter(zeroIndexedColNum) {
+  const res = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[zeroIndexedColNum % 26];
+  return zeroIndexedColNum >= 26 ? numberToColumn(Math.floor(zeroIndexedColNum / 26) - 1) + res : res;
+}

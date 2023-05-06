@@ -71,6 +71,12 @@ https://cloudinary.com/documentation/product_gallery#prerequisite_make_sure_clie
 
 21. In the same Apps Script file, paste the known404Links from `getImgurLinksWithoutAccounts.py` into the KNOWN_404_LINKS variable in the Apps Script file.
 
-22. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
+22. You may also want to replace the url in this line (search for it) - `else if (cellValue.includes("road6943.github.io/Arras-Wra-Imgur-Backups")) continue;` - with your github pages link if you have one. Leave the `https://www.` part at the beginning out of this line.
 
-23. Paste wipeOldImgurLinksAndAddNewLinks.gs into a new script file, change the extension to .gs, and use the Run button to run the function `ReplaceImgurLinks()`
+23. Open the Arras WRA spreadsheet and then go to Extensions > Apps Script
+
+24. Paste wipeOldImgurLinksAndAddNewLinks.gs into a new script file and change the extension to .gs
+
+25. Make sure the variable DO_REPLACING_FOR_REAL at the top is false and use the Run button to run the function `ReplaceImgurLinks()`. This will print any non-replacable imgur links to the Execution Log. Individually find each link on the sheet and do what you need to for each one.
+
+26. Once you've taken care of all the un-replacable imgur links, set DO_REPLACING_FOR_REAL to true, and run `ReplaceImgurLinks()` again. You should see the Execution Log output showing each sheet as it gets updated. Once the script finishes running, go through the sheet and make sure nothing went obviously wrong and you should be all good!

@@ -1,7 +1,7 @@
 // In Google Apps Script, change extension to .gs not .js
 /* 
   This file is part of a project to replace imgur links on the sheet not associated with an account because Imgur is going to delete them
-  on May 15 2023. You can find more details at https://github.com/Road6943/arras-wra-imgur-rescue
+  on May 15 2023. You can find more details at https://github.com/Road6943/Arras-Wra-Imgur-Backups
 
   Most code in this file is from this StackOverflow answer: https://stackoverflow.com/a/66994922
   I added in these lines: 
