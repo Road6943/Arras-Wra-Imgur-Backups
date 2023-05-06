@@ -45,7 +45,7 @@
         // https://demo.cloudinary.com/product-gallery/?editor
         const myGallery= cloudinary.galleryWidget({
             container: "#gallery",
-            cloudName: "road6943",
+            cloudName: cloudName,
             // get both images and videos from the album
             // the tags in cloudinary are base64 strings
             mediaAssets: [{ tag: imgurLinkBase64 }, { tag: imgurLinkBase64, mediaType: 'video' }],
