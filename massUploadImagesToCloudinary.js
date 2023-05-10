@@ -1,3 +1,5 @@
+const CONTAINER_FOLDER_NAME = "ArrasWraImgurBackups";
+
 // using node js bc python's async await stuff is too much work to learn
 
 // IF NOT ALL LINKS ARE UPLOADING MAKE SURE TO COMMENT OUT BREAK_AT
@@ -118,7 +120,7 @@ async function uploadImgurImagesToCloudinary(inputData, seenImgurLinks) {
                     // You can specify the folder path in the public id field
                     // Store each image in the folder of its parent link
                     // Put indexInAlbum at start of image name so it sorts correctly in same order as imgur album
-                    public_id: `ArrasWraImgurBackups/${oldParentLinkBase64}/${indexInAlbum}__${oldImgurLinkBase64}`,
+                    public_id: `${CONTAINER_FOLDER_NAME}/${oldParentLinkBase64}/${indexInAlbum}__${oldImgurLinkBase64}`,
                     tags: [ oldParentLinkBase64 ], // makes it easier for product gallery to get all images
                     resource_type: resourceType
                 });

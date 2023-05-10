@@ -133,6 +133,14 @@ def buildDictOfImgurLinksToAllTheirDirectLinks() -> Dict[str, List[str]]:
         https://imgur.com/jx7fyuA
         https://imgur.com/W5oGspb
         https://imgur.com/a/BOFNLHT
+        https://imgur.com/a/TbL2F2U
+        https://imgur.com/a/GWCrjkP
+        https://imgur.com/a/WDfksz9
+        https://imgur.com/a/cv5azHt
+        https://imgur.com/a/696969
+        https://imgur.com/a/fEIWdEI
+        https://imgur.com/a/UmfLhCO
+        https://imgur.com/a/JAIYiTJ
     '''
     known404Links = set([ link.strip() for link in known404Links.split('\n') ])
     #print(known404Links)

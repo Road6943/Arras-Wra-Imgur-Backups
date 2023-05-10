@@ -22,32 +22,40 @@ const SHEETS_TO_SKIP = new Set([
 ]);
 
 const KNOWN_404_LINKS = new Set(`
-  https://imgur.com/nxLpAD4
-  https://imgur.com/a/h1G5vzM
-  https://imgur.com/a/epjDjZu
-  https://imgur.com/a/cMGVaHz
-  https://imgur.com/a/ipvgkOv
-  https://imgur.com/a/OsIjGOs
-  https://imgur.com/a/fzwtClp
-  https://imgur.com/kt8heKr
-  https://imgur.com/a/6nnS2tK
-  https://imgur.com/PvvbqT5
-  https://imgur.com/XdHoY8Q
-  https://imgur.com/a/OdANkqX
-  https://imgur.com/a/wkbiCeo
-  https://imgur.com/a/NzCbe4b
-  https://imgur.com/a/LobzfCC
-  https://imgur.com/a/dCvnYex
-  https://imgur.com/a/6iQKHI2
-  https://imgur.com/a/B7OrVng
-  https://imgur.com/a/jnxFMb0
-  https://imgur.com/a/3mpi94j
-  https://imgur.com/SuVuDQd
-  https://imgur.com/a/gbdlZJP
-  https://imgur.com/a/vxoLM0j
-  https://imgur.com/jx7fyuA
-  https://imgur.com/W5oGspb
-  https://imgur.com/a/BOFNLHT
+https://imgur.com/nxLpAD4
+https://imgur.com/a/h1G5vzM
+https://imgur.com/a/epjDjZu
+https://imgur.com/a/cMGVaHz
+https://imgur.com/a/ipvgkOv
+https://imgur.com/a/OsIjGOs
+https://imgur.com/a/fzwtClp
+https://imgur.com/kt8heKr
+https://imgur.com/a/6nnS2tK
+https://imgur.com/PvvbqT5
+https://imgur.com/XdHoY8Q
+https://imgur.com/a/OdANkqX
+https://imgur.com/a/wkbiCeo
+https://imgur.com/a/NzCbe4b
+https://imgur.com/a/LobzfCC
+https://imgur.com/a/dCvnYex
+https://imgur.com/a/6iQKHI2
+https://imgur.com/a/B7OrVng
+https://imgur.com/a/jnxFMb0
+https://imgur.com/a/3mpi94j
+https://imgur.com/SuVuDQd
+https://imgur.com/a/gbdlZJP
+https://imgur.com/a/vxoLM0j
+https://imgur.com/jx7fyuA
+https://imgur.com/W5oGspb
+https://imgur.com/a/BOFNLHT
+https://imgur.com/a/TbL2F2U
+https://imgur.com/a/GWCrjkP
+https://imgur.com/a/WDfksz9
+https://imgur.com/a/cv5azHt
+https://imgur.com/a/696969
+https://imgur.com/a/fEIWdEI
+https://imgur.com/a/UmfLhCO
+https://imgur.com/a/JAIYiTJ
 `.split("\n").map(line => line.trim()));
 
 function ReplaceImgurLinks() {
@@ -141,5 +149,5 @@ function ReplaceImgurLinks() {
 // https://stackoverflow.com/a/71713806
 function colNum0IndexToLetter(zeroIndexedColNum) {
   const res = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[zeroIndexedColNum % 26];
-  return zeroIndexedColNum >= 26 ? numberToColumn(Math.floor(zeroIndexedColNum / 26) - 1) + res : res;
+  return zeroIndexedColNum >= 26 ? colNum0IndexToLetter(Math.floor(zeroIndexedColNum / 26) - 1) + res : res;
 }
