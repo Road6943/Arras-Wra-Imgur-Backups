@@ -17,9 +17,9 @@ If you want to save imgur links from other spreadsheets, download them as csv's 
 
 1. Fork this Github Repo, then clone it to your local computer using git
 
-2. Make an imgur.com account and get an imgur clientId and clientSecret at https://api.imgur.com/oauth2/addclient
+2. Make an imgur.com account and get an imgur clientId and clientSecret at https://api.imgur.com/oauth2/addclient . Use this guide if you need help: https://dev.to/bearer/how-to-configure-the-imgur-api-2ap9 . You can disable your api key in your account settings in the Applications section.
 
-3. Make a cloudinary.com account and get your cloudName, apiKey, and apiSecret. You can find these by using the sidebar to go to `Programmable Media > Dashboard`. You can generate a new apiKey and apiSecret by going to `Settings > Access Keys`.
+3. Make a cloudinary.com account and get your cloudName, apiKey, and apiSecret. You can find these by using the sidebar to go to `Programmable Media > Dashboard`. You can generate a new apiKey and apiSecret by going to `Settings > Access Keys`. You can disable your api key there as well.
 
 4. Add a file called `DONT_SHARE_SECRETS.json` and add the following code inside and fill in the right values for each key. You can skip adding a value for GithubPagesSiteBaseURL for now:
 
