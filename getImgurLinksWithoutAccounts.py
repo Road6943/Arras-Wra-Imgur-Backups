@@ -65,6 +65,7 @@ def parseExistingLinksToDirectLinksFile() -> Set[str]:
         for obj in reader: # obj looks like { "imgurLink": ["allDirectImageLinksInAlbumOrDirectLinkToSingleImage"] }
             for imgurLink in obj:
                 seenLinks.add(imgurLink)
+                print(f"Added {imgurLink} to seenLinks")
 
     return seenLinks
 
