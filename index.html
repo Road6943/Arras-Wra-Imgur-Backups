@@ -5,64 +5,30 @@
         <title>Arras Wra Imgur Backups</title>
         <meta name="description" content="Arras Wra Imgur Backups">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://product-gallery.cloudinary.com/all.js" type="text/javascript"></script>  
     </head>
     <body>
-        <div id="gallery" style="max-width:80%;margin:auto"></div>
+        <a id="proofLink">View Proof</a>
     </body>
 </html>
 
 <script>
-    (function main() {
+    window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
-        let imgurLinkBase64 = urlParams.get('imgurLinkBase64')?.trim();
-        let imgurLink = urlParams.get('imgurLink')?.trim();
-        let cloudName = urlParams.get('cloudName')?.trim();
-        
-        // default cloud name is "road6943"
-        if (!cloudName) {
-            cloudName = "road6943";
-        }
+        const imgurLink = urlParams.get('imgurLink')?.trim();
 
         // if no imgur link params, returns null
         // also return early if empty string
-        if (!imgurLinkBase64 && !imgurLink) {
-            console.log("You must include a url param of imgurLink or imgurLinkBase64! For example:");
-            console.log("?imgurLink=https://imgur.com/a/ByNNl9O");
+        if (!imgurLink) {
+            alert("You must include a url param of imgurLink! For example: ?imgurLink=https://imgur.com/a/ByNNl9O");
             return;
         }
 
-        // if only imgurLink, convert it to base64
-        if (imgurLink && !imgurLinkBase64) {
-            imgurLinkBase64 = btoa(imgurLink);
-        }
-
-        // if both imgurLink and imgurLinkBase64, 
-        // then imgurLinkBase64 will be the only one used
-        
-
-        // https://cloudinary.com/documentation/product_gallery
-        // https://demo.cloudinary.com/product-gallery/?editor
-        const myGallery= cloudinary.galleryWidget({
-            container: "#gallery",
-            cloudName: cloudName,
-            // get both images and videos from the album
-            // the tags in cloudinary are base64 strings
-            mediaAssets: [{ tag: imgurLinkBase64 }, { tag: imgurLinkBase64, mediaType: 'video' }],
-            displayProps: { mode: "expanded" },
-            videoProps: { controls: "all", loop: true, sound: true, },
-            zoomProps: {type: "popup"},
-            aspectRatio: "16:9", // this is what controls the gap space between images, kinda
-            themeProps: { active: "#8ABC3F" }, // Make the thumbnail selection left bar Arras Green Color
+        // set link in html too in case redirect doesn't work
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('proofLink').href = imgurLink;
         });
 
-        myGallery.render();
-    })();
-
-    // checks if an imgur link was replaced by a single direct image link
-    // and returns that direct image link if so
-    // otherwise, return null
-    function getDirectLink(imgurLink) {
-
+        // redirect to new link
+        window.location.replace(imgurLink);
     }
 </script>
