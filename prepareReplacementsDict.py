@@ -91,8 +91,11 @@ def makeReplacementsDicts(inputData):
         # or if it was a direct image link before
         # then its replacement will be a cloudinary direct image link
         if len(childLinks) == 1:
-            replacements[oldParentLink] = childLinks[0]
-            continue
+            #replacements[oldParentLink] = childLinks[0]
+            #continue
+            # just use the road-github format for everything so its
+            # easier to change image hosts later
+            pass
 
         # for all other links with multiple images in album
         # I built a github pages site that somewhat replicates
